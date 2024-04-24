@@ -83,6 +83,25 @@ Esta função é responsável por percorrer todos os arquivos de imagem em uma p
 
 Essa função é útil para converter todas as imagens em uma pasta de uma só vez, seguindo as mesmas etapas de conversão definidas na função `convert_image()`.
 
+## Função compress_all_images(source_folder, output_folder, quality=10):
+
+Esta função tem como objetivo comprimir todas as imagens em um diretório de origem e salvar as versões comprimidas em um diretório de destino, mantendo o formato original ou convertendo para JPEG com qualidade ajustável.
+
+- Parâmetros:
+  - source_folder: O caminho para o diretório que contém as imagens a serem comprimidas.
+  - output_folder: O caminho para o diretório onde as imagens comprimidas serão salvas.
+  - quality: (Opcional) A qualidade da compressão para imagens JPEG. O valor padrão é 10.
+- Funcionamento:
+  - A função utiliza um loop for para percorrer cada arquivo no diretório especificado em source_folder.
+  - Para cada arquivo, a função identifica a extensão original do arquivo e monta os caminhos de entrada e saída adequados.
+  - Em seguida, a função tenta abrir a imagem usando o método Image.open() da biblioteca PIL (Python Imaging Library) dentro de um bloco with para garantir que o arquivo seja fechado corretamente após o uso.
+  - Dependendo da extensão do arquivo e do modo da imagem, a função realiza diferentes operações de compressão:
+    - Se a extensão for 'jpg' ou 'jpeg', a imagem é convertida para o modo 'RGB' caso tenha um canal alfa (alpha channel) e é salva como JPEG com a qualidade especificada.
+    - Se a extensão for 'png' ou 'gif' e o modo da imagem for 'RGBA', a imagem é salva com a extensão em maiúsculas e com otimização.
+    - Caso contrário, a imagem é salva mantendo o formato original.
+  - Após a compressão bem-sucedida, uma mensagem é exibida indicando que a imagem foi comprimida e salva com sucesso, junto com o caminho do arquivo de saída.
+  - Se ocorrer algum erro durante o processo de compressão da imagem, a função captura a exceção e exibe uma mensagem de erro.
+
 ## Função main():
 
 Esta função é o ponto de entrada principal do programa. Ela controla a interação com o usuário, permite que o usuário escolha entre converter uma imagem específica ou todas as imagens em uma pasta e direciona o fluxo de execução do programa com base na escolha do usuário.
